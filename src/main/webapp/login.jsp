@@ -6,8 +6,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<%String messagefromlogin=(String)request.getAttribute("message"); %>
-<h1><%=messagefromlogin %></h1>
+<%String message=(String)request.getAttribute("message"); %>
+<%if(message!=null){ %>
+<h1><%=message %></h1>
+<%}else{ %>
+
+<%="Welcome to LOGIN PAGE PLEASE LOGIN" %>
+<%} %>
 <body>
 <form action="login" method="post">
 Email::<input type="email" name="email">
