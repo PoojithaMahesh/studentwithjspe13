@@ -39,7 +39,9 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 		if(password.equals(studentPassword)) {
 //		valid password
 //			Login success
-			resp.sendRedirect("https://www.javatpoint.com/java-basics");
+			req.setAttribute("list", list);
+			RequestDispatcher dispatcher=req.getRequestDispatcher("display.jsp");
+			dispatcher.forward(req, resp);
 		}else {
 //			invalid password
 			req.setAttribute("message", "INVALID PASSWORD");

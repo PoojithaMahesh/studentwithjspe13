@@ -30,6 +30,34 @@ public class StudentDao {
 		Query query=entityManager.createQuery("Select s from Student s");
 		return query.getResultList();
 	}
+
+
+	public Student findStudentById(int id) {
+		EntityManager entityManager=getEntityManager();
+		Student student=entityManager.find(Student.class, id);
+		return student;
+	}
+
+
+	public void updateStudent(Student student) {
+		EntityManager entityManager=getEntityManager();
+		EntityTransaction entityTransaction=entityManager.getTransaction();
+		entityTransaction.begin();
+		entityManager.merge(student);
+		entityTransaction.commit();
+		
+	}
+
+
+	public void deleteStudentById(int id) {
+		EntityManager entityManager=getEntityManager();
+		Student student=entityManager.find(Student.class, id);
+		EntityTransaction entityTransaction=entityManager.getTransaction();
+		entityTransaction.begin();
+		entityManager.remove(student);
+		entityTransaction.commit();
+		
+	}
 	
 	
 	

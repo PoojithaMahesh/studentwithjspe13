@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import studentwithjspe13.dao.StudentDao;
 import studentwithjspe13.dto.Student;
-
-@WebServlet("/signup")
-public class SignupServlet extends HttpServlet{
+@WebServlet("/edit")
+public class EditServlet extends HttpServlet{
 @Override
 protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	String name=req.getParameter("name");
@@ -22,6 +21,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 	String address=req.getParameter("address");
 	String phone =req.getParameter("phone");
 	long phoneNumber=Long.parseLong(phone);
+	int id=Integer.parseInt(req.getParameter("id"));
 	
 	Student student=new Student();
 	student.setAddress(address);
@@ -29,13 +29,26 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 	student.setName(name);
 	student.setPassword(password);
 	student.setPhone(phoneNumber);
+	student.setId(id);
 	
 	
 	StudentDao dao=new StudentDao();
-	dao.saveStudent(student);
+	dao.updateStudent(student);
 	
-	req.setAttribute("message", "SignedUpsuccessfully Please Login");
-	RequestDispatcher dispatcher=req.getRequestDispatcher("login.jsp");
+	
+	req.setAttribute("list", dao.getAllStudents());
+	RequestDispatcher dispatcher=req.getRequestDispatcher("display.jsp");
 	dispatcher.forward(req, resp);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 }
